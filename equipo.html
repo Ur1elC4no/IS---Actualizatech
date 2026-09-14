@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El equipo — ActualizaTech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">
+      <img src="images/logo.jpeg" alt="Logo ActualizaTech" class="navbar__logo-img">
+      ActualizaTech
+    </a>
+    <ul class="navbar__links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="equipo.html" class="activo">Equipo</a></li>
+      <li><a href="index.html#contacto" class="navbar__cta">Contáctanos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="equipo" aria-labelledby="equipo-titulo">
+  <h1 class="equipo__titulo" id="equipo-titulo">El equipo detrás de ActualizaTech</h1>
+  <p class="equipo__descripcion">
+    Somos un equipo pequeño de ingeniería en software. Cada persona conoce a fondo su
+    parte del proyecto, por eso cuando algo falla, sabemos exactamente quién resolverlo
+    y qué tan rápido.
+  </p>
+
+  <div class="equipo__grid" id="equipo-grid"></div>
+
+  <p class="equipo__nota">
+    Datos de ejemplo para fines de demostración (US-07). Sin conexión a backend: la
+    información se genera desde este mismo archivo.
+  </p>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span>© 2026 ActualizaTech. Contenido de ejemplo para fines de demostración.</span>
+    <ul class="footer__links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="equipo.html">Equipo</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Datos de ejemplo (US-07 / criterio: "datos de ejemplo, sin backend real")
+  const equipo = [
+    { nombre: "Javier Alexander Martínez Flores", rol: "Product Owner",
+      descripcion: "Define qué construir primero y por qué, hablando directo con los dueños de negocio.",
+      color: "#29D6E0" },
+    { nombre: "Jairo Antonio Melgar Obrajero", rol: "Scrum Master",
+      descripcion: "Organiza los sprints y quita obstáculos para que el equipo entregue a tiempo.",
+      color: "#7B5CFA" },
+    { nombre: "Clara Paulina Hernández López", rol: "Desarrolladora Frontend / QA",
+      descripcion: "Construye las pantallas y verifica que cada historia cumpla sus criterios de aceptación.",
+      color: "#29D6E0" },
+    { nombre: "Oscar Uriel Montalvo Cano", rol: "Desarrollador",
+      descripcion: "Implementa la lógica de las funcionalidades de la plataforma.",
+      color: "#7B5CFA" },
+    { nombre: "Leonardo Rodríguez Gutiérrez", rol: "Desarrollador SQL",
+      descripcion: "Diseña y mantiene la base de datos que sostiene la información de la plataforma.",
+      color: "#29D6E0" },
+  ];
+
+  function iniciales(nombreCompleto){
+    const partes = nombreCompleto.split(" ").filter(Boolean);
+    return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+  }
+
+  const grid = document.getElementById("equipo-grid");
+
+  equipo.forEach(persona => {
+    const card = document.createElement("article");
+    card.className = "miembro";
+    card.innerHTML = `
+      <div class="miembro__avatar" style="background:${persona.color}">
+        ${iniciales(persona.nombre)}
+      </div>
+      <p class="miembro__nombre">${persona.nombre}</p>
+      <p class="miembro__rol">${persona.rol}</p>
+      <p class="miembro__descripcion">${persona.descripcion}</p>
+    `;
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

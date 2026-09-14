@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicios — ActualizaTech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">
+      <img src="images/logo.jpeg" alt="Logo ActualizaTech" class="navbar__logo-img">
+      ActualizaTech
+    </a>
+    <ul class="navbar__links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html" class="activo">Servicios</a></li>
+      <li><a href="equipo.html">Equipo</a></li>
+      <li><a href="index.html#contacto" class="navbar__cta">Contáctanos</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section aria-labelledby="servicios-titulo">
+  <h1 id="servicios-titulo">Lo que hacemos por tu negocio</h1>
+  <p class="descripcion">
+    Dos frentes, sin complicaciones: te ayudamos a que te encuentren en línea y a que
+    dejes de manejar tu negocio a mano.
+  </p>
+
+  <div class="servicios-grid" id="servicios-grid" style="margin-top:56px;"></div>
+
+  <div class="propuesta">
+    <h2>Nuestra propuesta de valor</h2>
+    <p id="propuesta-texto"></p>
+  </div>
+
+  <div class="metricas">
+    <h2>Impacto que generamos</h2>
+    <div class="metricas-grid" id="metricas-grid"></div>
+    <p class="metricas__nota">*Cifras de ejemplo con fines de demostración, aún no representan datos de producción.</p>
+  </div>
+
+  <div class="mision-vision" id="mision-vision"></div>
+
+  <p class="nota-final">
+    Contenido de ejemplo para fines de demostración (US-06). Sin conexión a backend: la
+    información vive en este mismo archivo.
+  </p>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span>© 2026 ActualizaTech. Contenido de ejemplo para fines de demostración.</span>
+    <ul class="footer__links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="equipo.html">Equipo</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Datos de ejemplo (US-06). Descripción de servicios y propuesta de valor
+  // tomadas del brief de ActualizaTech; misión, visión y métricas son
+  // contenido simulado, tal como pide el criterio de aceptación.
+
+  const servicios = [
+    {
+      titulo: "Presencia Digital",
+      color: "#29D6E0",
+      inicial: "PD",
+      texto: "Para que te encuentren cuando buscan un negocio como el tuyo.",
+      lista: ["Sitio web sencillo con tu información y servicios", "Ficha en Google Maps optimizada", "Enlaces directos a tus redes sociales"]
+    },
+    {
+      titulo: "Gestión de Negocio",
+      color: "#7B5CFA",
+      inicial: "GN",
+      texto: "Para que dejes de manejar tu negocio con cuadernos y notas sueltas.",
+      lista: ["Plataforma sin papeles para tu operación diaria", "Registro de clientes y pagos en un solo lugar", "Reportes simples para tomar decisiones"]
+    }
+  ];
+
+  const propuesta = "Procesos simples que cualquier persona entiende, transparencia total sobre " +
+    "el producto final, y evidencia real de negocios que ya digitalizamos con nosotros.";
+
+  const metricas = [
+    { valor: "48", label: "Negocios digitalizados" },
+    { valor: "92%", label: "Satisfacción reportada" },
+    { valor: "3 días", label: "Tiempo promedio de implementación" },
+    { valor: "24/7", label: "Plataforma disponible" },
+  ];
+
+  const misionVision = [
+    { titulo: "Misión", texto: "Ayudar a negocios locales a construir presencia digital y gestionar su operación desde un solo lugar, sin necesidad de conocimientos técnicos." },
+    { titulo: "Visión", texto: "Ser la opción de confianza para que cualquier negocio local del país pueda digitalizarse sin complicarse la vida." },
+  ];
+
+  const gridServicios = document.getElementById("servicios-grid");
+  servicios.forEach(s => {
+    const card = document.createElement("article");
+    card.className = "servicio";
+    card.innerHTML = `
+      <div class="servicio__icono" style="background:${s.color}">${s.inicial}</div>
+      <p class="servicio__titulo">${s.titulo}</p>
+      <p class="servicio__texto">${s.texto}</p>
+      <ul class="servicio__lista">${s.lista.map(item => `<li>${item}</li>`).join("")}</ul>
+    `;
+    gridServicios.appendChild(card);
+  });
+
+  document.getElementById("propuesta-texto").textContent = propuesta;
+
+  const gridMetricas = document.getElementById("metricas-grid");
+  metricas.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "metrica";
+    card.innerHTML = `
+      <p class="metrica__valor">${m.valor}</p>
+      <p class="metrica__label">${m.label}</p>
+    `;
+    gridMetricas.appendChild(card);
+  });
+
+  const gridMV = document.getElementById("mision-vision");
+  misionVision.forEach(mv => {
+    const card = document.createElement("div");
+    card.className = "mv-card";
+    card.innerHTML = `
+      <p class="mv-card__titulo">${mv.titulo}</p>
+      <p>${mv.texto}</p>
+    `;
+    gridMV.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
