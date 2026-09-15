@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contacto — ActualizaTech</title>
+<meta name="description" content="Cuéntanos cómo llevas tu negocio hoy y te decimos por dónde conviene empezar a digitalizarlo.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contacto — ActualizaTech">
+<meta property="og:description" content="Cuéntanos cómo llevas tu negocio hoy y te decimos por dónde conviene empezar a digitalizarlo.">
+<meta property="og:image" content="images/logo.png">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">
+      <img src="images/logo.png" alt="" class="navbar__logo-img">
+      ActualizaTech
+    </a>
+
+    <div class="navbar__derecha">
+      <ul class="navbar__links" id="menu-principal">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="equipo.html">Equipo</a></li>
+        <li><a href="contacto.html" class="navbar__cta">Contáctanos</a></li>
+      </ul>
+
+      <!-- Los dos iconos viven siempre en el HTML y el CSS decide cuál se
+           muestra según el tema. Si se cambiaran con JS, al recargar se
+           vería medio segundo el icono equivocado. -->
+      <button class="tema" type="button" aria-label="Cambiar tema">
+        <svg class="tema__luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="tema__sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </svg>
+      </button>
+
+      <button class="hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="contenido">
+
+<section aria-labelledby="contacto-titulo">
+  <div class="contacto">
+
+    <div class="contacto__datos">
+      <h1 id="contacto-titulo">Cuéntanos de tu negocio</h1>
+      <p>
+        No necesitas tener nada listo ni saber qué pedir. Con saber a qué te
+        dedicas y cómo llevas tu operación hoy, te decimos por dónde empezar.
+      </p>
+
+      <ul class="contacto__lista">
+        <li>
+          <span>Teléfono</span>
+          <a href="tel:+524421234567">442 123 4567</a>
+        </li>
+        <li>
+          <span>Correo</span>
+          <a href="mailto:hola@actualizatech.com">hola@actualizatech.com</a>
+        </li>
+        <li>
+          <span>Horario</span>
+          Lunes a viernes, 9:00 a 18:00
+        </li>
+        <li>
+          <span>Dónde estamos</span>
+          Querétaro, Qro.
+        </li>
+      </ul>
+    </div>
+
+    <!-- novalidate apaga los mensajes del navegador para usar los nuestros,
+         que dicen qué corregir en lugar de "Completa este campo". -->
+    <form class="formulario" id="form-contacto" novalidate>
+
+      <div class="campo">
+        <label for="nombre">Tu nombre</label>
+        <input type="text" id="nombre" name="nombre" autocomplete="name">
+        <p class="campo__error" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label for="negocio">Nombre de tu negocio</label>
+        <input type="text" id="negocio" name="negocio" autocomplete="organization">
+        <p class="campo__error" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono o WhatsApp</label>
+        <!-- type="tel" hace que en celular salga el teclado numérico. -->
+        <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="442 123 4567">
+        <p class="campo__error" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo (opcional)</label>
+        <input type="email" id="correo" name="correo" autocomplete="email">
+        <p class="campo__error" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label for="interes">¿Qué te interesa?</label>
+        <select id="interes" name="interes">
+          <option value="presencia">Presencia digital</option>
+          <option value="gestion">Gestión de negocio</option>
+          <option value="ambos">Los dos</option>
+          <option value="no-se">Todavía no sé</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="mensaje">¿Cómo llevas tu negocio hoy?</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Por ejemplo: llevo los pedidos en una libreta y no aparezco en internet."></textarea>
+        <p class="campo__error" aria-live="polite"></p>
+      </div>
+
+      <button type="submit" class="boton boton--primario">Enviar mis datos</button>
+
+      <!-- role="status" hace que los lectores de pantalla lean la
+           confirmación sin que el usuario tenga que ir a buscarla. -->
+      <p class="formulario__aviso" id="form-aviso" role="status" tabindex="-1" hidden></p>
+
+      <p class="formulario__nota">
+        Formulario de demostración: los datos no se envían a ningún servidor todavía.
+      </p>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span>© 2026 ActualizaTech. Contenido de ejemplo para fines de demostración.</span>
+    <ul class="footer__links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="equipo.html">Equipo</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/contacto.js"></script>
+</body>
+</html>

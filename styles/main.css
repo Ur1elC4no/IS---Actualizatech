@@ -1,16 +1,85 @@
+/* ==========================================================================
+   ActualizaTech — hoja de estilos única
+   Los colores salen del logo: navy de fondo, cian y violeta de las flechas.
+   El cian se reserva para cosas en las que se puede hacer clic y el violeta
+   para acentos que solo decoran. Si se mezclan, el usuario deja de saber
+   qué es botón y qué no.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens de color
+   Por defecto arranca en claro. Más abajo, el bloque prefers-color-scheme
+   pisa estos valores si el sistema operativo está en oscuro.
+   -------------------------------------------------------------------------- */
 :root{
+  --bg: #FFFFFF;
+  --superficie: #F6F7FB;
+  --superficie-alta: #EDEFF7;
+  --borde: #DFE3EE;
+  --texto: #0A0E1C;
+  --texto-sec: #5A6178;
+  --texto-terciario: #8A91A6;
+
+  /* El cian del logo sobre blanco casi no se lee, así que en claro uso
+     una versión más profunda. El violeta aguanta bien en los dos temas. */
+  --cian: #0E9BA6;
+  --cian-hover: #0B7F88;
+  --violeta: #6845E8;
+  --sobre-cian: #FFFFFF;
+
+  --glow-1: rgba(14, 155, 166, 0.20);
+  --glow-2: rgba(104, 69, 232, 0.18);
+
+  --radio: 8px;
+  --ancho: 1080px;
+}
+
+/* Tema oscuro automático: solo aplica si el usuario NO eligió tema a mano.
+   El atributo data-tema lo pone el JS en <html> cuando alguien usa el botón,
+   y tiene prioridad sobre lo que diga el sistema. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]){
+    --bg: #0A0E1C;
+    --superficie: #12182B;
+    --superficie-alta: #1A2238;
+    --borde: #232B45;
+    --texto: #EEF1F8;
+    --texto-sec: #8B93AD;
+    --texto-terciario: #545D78;
+
+    --cian: #29D6E0;
+    --cian-hover: #4FE0E8;
+    --violeta: #9B84FF;
+    --sobre-cian: #0A0E1C;
+
+    --glow-1: rgba(41, 214, 224, 0.28);
+    --glow-2: rgba(123, 92, 250, 0.22);
+  }
+}
+
+/* Tema oscuro forzado desde el botón, sin importar el sistema. */
+:root[data-tema="oscuro"]{
   --bg: #0A0E1C;
   --superficie: #12182B;
   --superficie-alta: #1A2238;
   --borde: #232B45;
-  --cian: #29D6E0;
-  --violeta: #7B5CFA;
   --texto: #EEF1F8;
   --texto-sec: #8B93AD;
   --texto-terciario: #545D78;
+
+  --cian: #29D6E0;
+  --cian-hover: #4FE0E8;
+  --violeta: #9B84FF;
+  --sobre-cian: #0A0E1C;
+
+  --glow-1: rgba(41, 214, 224, 0.28);
+  --glow-2: rgba(123, 92, 250, 0.22);
 }
 
-*{ box-sizing: border-box; margin:0; padding:0; }
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*{ box-sizing: border-box; margin: 0; padding: 0; }
 
 html{ scroll-behavior: smooth; }
 
@@ -19,27 +88,19 @@ body{
   background: var(--bg);
   color: var(--texto);
   line-height: 1.6;
+  /* La transición es para que al cambiar de tema no dé un brinco brusco. */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-section{ max-width: 1080px; margin: 0 auto; padding: 96px 24px; }
+section{ max-width: var(--ancho); margin: 0 auto; padding: 96px 24px; }
 
-h1, h2{
+h1, h2, h3{
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: -0.01em;
 }
 
-h1{
-  font-size: clamp(2rem, 4.4vw, 2.9rem);
-  font-weight: 700;
-  max-width: 620px;
-}
-
-h2{
-  font-size: clamp(1.4rem, 3vw, 1.8rem);
-  font-weight: 600;
-  margin-bottom: 32px;
-  max-width: 520px;
-}
+h1{ font-size: clamp(2rem, 4.4vw, 2.9rem); font-weight: 700; max-width: 620px; }
+h2{ font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 600; margin-bottom: 32px; max-width: 520px; }
 
 .descripcion{
   margin-top: 18px;
@@ -50,22 +111,50 @@ h2{
 
 a{ color: inherit; }
 
-/* --- Navbar --- */
+/* Foco visible para quien navega con teclado. Uso focus-visible para que el
+   anillo no salga al hacer clic con el mouse, solo al tabular. */
+:focus-visible{
+  outline: 2px solid var(--cian);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Enlace que salta directo al contenido. Vive escondido arriba y solo
+   aparece cuando recibe foco con Tab. */
+.saltar{
+  position: absolute;
+  left: 24px;
+  top: -60px;
+  z-index: 50;
+  background: var(--cian);
+  color: var(--sobre-cian);
+  padding: 10px 18px;
+  border-radius: var(--radio);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.saltar:focus{ top: 12px; }
+
+/* --------------------------------------------------------------------------
+   3. Navbar
+   -------------------------------------------------------------------------- */
 .navbar{
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: rgba(10, 14, 28, 0.88);
+  z-index: 30;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--borde);
 }
 .navbar__inner{
-  max-width: 1080px;
+  max-width: var(--ancho);
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
 }
 .navbar__logo{
   display: flex;
@@ -76,6 +165,7 @@ a{ color: inherit; }
   font-size: 1.1rem;
   color: var(--texto);
   text-decoration: none;
+  flex-shrink: 0;
 }
 .navbar__logo-img{
   width: 32px;
@@ -84,10 +174,11 @@ a{ color: inherit; }
   object-fit: cover;
   display: block;
 }
+.navbar__derecha{ display: flex; align-items: center; gap: 20px; }
 .navbar__links{
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
   list-style: none;
 }
 .navbar__links a{
@@ -99,26 +190,102 @@ a{ color: inherit; }
   border-bottom: 1px solid transparent;
 }
 .navbar__links a:hover{ color: var(--texto); }
-.navbar__links a.activo{
+.navbar__links a[aria-current="page"]{
   color: var(--texto);
-  border-bottom: 1px solid var(--cian);
+  border-bottom-color: var(--cian);
 }
 .navbar__cta{
   background: var(--cian);
-  color: var(--bg) !important;
+  color: var(--sobre-cian) !important;
   padding: 9px 18px;
   border-radius: 6px;
   border-bottom: none !important;
   font-weight: 600 !important;
 }
+.navbar__cta:hover{ background: var(--cian-hover); }
 
-@media (max-width: 700px){
-  .navbar__links{ display: none; }
+/* Botón de tema. Los dos iconos viven dentro y el JS solo cambia el
+   atributo data-tema; CSS decide cuál se ve. Así no hay parpadeo. */
+.tema{
+  background: transparent;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--texto-sec);
+  flex-shrink: 0;
+}
+.tema:hover{ color: var(--texto); border-color: var(--texto-terciario); }
+.tema svg{ width: 17px; height: 17px; }
+/* En claro se ve la luna (que es a lo que puedes cambiar) y al revés. */
+.tema__luna{ display: block; }
+.tema__sol{ display: none; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]) .tema__luna{ display: none; }
+  :root:not([data-tema="claro"]) .tema__sol{ display: block; }
+}
+:root[data-tema="oscuro"] .tema__luna{ display: none; }
+:root[data-tema="oscuro"] .tema__sol{ display: block; }
+:root[data-tema="claro"] .tema__luna{ display: block; }
+:root[data-tema="claro"] .tema__sol{ display: none; }
+
+/* Botón hamburguesa: escondido en escritorio, aparece en móvil. */
+.hamburguesa{
+  display: none;
+  background: transparent;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  color: var(--texto);
+  align-items: center;
+  justify-content: center;
+}
+.hamburguesa svg{ width: 18px; height: 18px; }
+
+@media (max-width: 760px){
+  .hamburguesa{ display: flex; }
+
+  /* En móvil el menú se convierte en un panel que baja desde el navbar.
+     Uso [hidden] desde el JS para que los lectores de pantalla también
+     lo ignoren cuando está cerrado, no solo esconderlo visualmente. */
+  .navbar__links{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--borde);
+    padding: 8px 24px 20px;
+  }
+  .navbar__links[hidden]{ display: none; }
+  .navbar__links li{ border-top: 1px solid var(--borde); }
+  .navbar__links a{
+    display: block;
+    padding: 14px 0;
+    border-bottom: none;
+  }
+  .navbar__links a[aria-current="page"]{ color: var(--cian); }
+  .navbar__cta{
+    display: inline-block !important;
+    margin-top: 12px;
+    text-align: center;
+  }
 }
 
-/* --- Hero --- */
+/* --------------------------------------------------------------------------
+   4. Hero
+   -------------------------------------------------------------------------- */
 .hero{
-  max-width: 1080px;
+  max-width: var(--ancho);
   margin: 0 auto;
   padding: 90px 24px 80px;
   display: grid;
@@ -126,7 +293,6 @@ a{ color: inherit; }
   gap: 48px;
   align-items: center;
 }
-.hero__contenido{ text-align: left; }
 .hero h1{ margin: 0; }
 .hero__subtitulo{
   margin-top: 20px;
@@ -134,54 +300,21 @@ a{ color: inherit; }
   color: var(--texto-sec);
   font-size: 1.08rem;
 }
-.hero__acciones{
-  margin-top: 36px;
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-.hero__visual{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+.hero__acciones{ margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
+.hero__visual{ display: flex; align-items: center; justify-content: center; position: relative; }
 .hero__glow{
   position: absolute;
-  width: 260px;
-  height: 260px;
+  width: 260px; height: 260px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(41, 214, 224, 0.28), rgba(123, 92, 250, 0.22) 55%, transparent 75%);
+  background: radial-gradient(circle, var(--glow-1), var(--glow-2) 55%, transparent 75%);
   filter: blur(10px);
 }
 .hero__logo{
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 200px; height: 200px;
   object-fit: contain;
   border-radius: 28px;
 }
-
-.boton{
-  display: inline-flex;
-  align-items: center;
-  padding: 13px 24px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.96rem;
-  text-decoration: none;
-}
-.boton--primario{
-  background: var(--cian);
-  color: var(--bg);
-}
-.boton--primario:hover{ background: #4FE0E8; }
-.boton--secundario{
-  background: transparent;
-  color: var(--texto);
-  border: 1px solid var(--borde);
-}
-.boton--secundario:hover{ border-color: var(--texto-sec); }
 
 @media (max-width: 800px){
   .hero{ grid-template-columns: 1fr; padding-top: 56px; }
@@ -190,16 +323,44 @@ a{ color: inherit; }
   .hero__glow{ width: 180px; height: 180px; }
 }
 
-/* --- Servicios (grid genérica reutilizada en index y servicios) --- */
-.servicios-grid, .preview-grid{
+/* --------------------------------------------------------------------------
+   5. Botones
+   -------------------------------------------------------------------------- */
+.boton{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 24px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.96rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.boton--primario{ background: var(--cian); color: var(--sobre-cian); }
+.boton--primario:hover{ background: var(--cian-hover); }
+.boton--secundario{ background: transparent; color: var(--texto); border-color: var(--borde); }
+.boton--secundario:hover{ border-color: var(--texto-sec); }
+
+/* --------------------------------------------------------------------------
+   6. Rejilla de tarjetas
+   El truco del gap de 1px sobre un fondo de color borde da líneas divisorias
+   perfectas sin tener que andar quitando el borde del último elemento.
+   -------------------------------------------------------------------------- */
+.servicios-grid, .preview-grid, .casos-grid, .equipo__grid, .mision-vision{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1px;
   background: var(--borde);
   border: 1px solid var(--borde);
-  border-radius: 8px;
+  border-radius: var(--radio);
   overflow: hidden;
 }
+.servicios-grid, .preview-grid{ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.casos-grid{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.equipo__grid{ grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.mision-vision{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 
 .servicio, .preview-card{
   background: var(--superficie);
@@ -214,11 +375,10 @@ a{ color: inherit; }
   width: 40px; height: 40px;
   border-radius: 7px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--bg); font-weight: 700; font-size: 1rem;
+  color: #fff; font-weight: 700; font-size: 1rem;
   font-family: 'Space Grotesk', sans-serif;
   margin-bottom: 20px;
 }
-
 .servicio__titulo, .preview-card__titulo{
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.1rem;
@@ -235,7 +395,9 @@ a{ color: inherit; }
   font-size: 0.9rem;
 }
 
-/* --- Propuesta de valor --- */
+/* --------------------------------------------------------------------------
+   7. Propuesta de valor
+   -------------------------------------------------------------------------- */
 .propuesta{
   margin-top: 80px;
   border-left: 2px solid var(--violeta);
@@ -244,7 +406,11 @@ a{ color: inherit; }
 .propuesta h2{ margin-bottom: 12px; }
 .propuesta p{ max-width: 560px; color: var(--texto-sec); font-size: 1.05rem; }
 
-/* --- Métricas: fila dividida, no tarjetas --- */
+/* --------------------------------------------------------------------------
+   8. Métricas
+   Fila partida con líneas en lugar de cuatro tarjetas iguales: pesa menos
+   visualmente y no compite con las tarjetas de servicios.
+   -------------------------------------------------------------------------- */
 .metricas{ margin-top: 80px; }
 .metricas-grid{
   display: flex;
@@ -254,9 +420,8 @@ a{ color: inherit; }
 }
 .metrica{
   flex: 1 1 200px;
-  padding: 28px 28px 28px 0;
+  padding: 28px 28px 28px 28px;
   border-left: 1px solid var(--borde);
-  padding-left: 28px;
 }
 .metrica:first-child{ border-left: none; padding-left: 0; }
 .metrica__valor{
@@ -268,53 +433,184 @@ a{ color: inherit; }
 .metrica__label{ margin-top: 6px; color: var(--texto-sec); font-size: 0.9rem; }
 .metricas__nota{ margin-top: 18px; font-size: 0.8rem; color: var(--texto-terciario); }
 
-/* --- Misión y visión --- */
-.mision-vision{
-  margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--borde);
-  border: 1px solid var(--borde);
-  border-radius: 8px;
-  overflow: hidden;
+/* --------------------------------------------------------------------------
+   9. Casos de éxito
+   -------------------------------------------------------------------------- */
+.casos{ margin-top: 80px; }
+.caso{ background: var(--superficie); padding: 32px 30px; }
+.caso__negocio{
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
-.mv-card{
-  background: var(--superficie);
-  padding: 32px 30px;
+.caso__giro{ color: var(--texto-terciario); font-size: 0.85rem; margin-top: 2px; }
+.caso__cambio{
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--borde);
+  display: flex;
+  gap: 20px;
+  font-size: 0.85rem;
 }
+.caso__antes span, .caso__despues span{ display: block; color: var(--texto-terciario); font-size: 0.78rem; }
+.caso__antes p{ color: var(--texto-sec); margin-top: 3px; }
+.caso__despues p{ color: var(--violeta); font-weight: 600; margin-top: 3px; }
+.caso__cita{
+  margin-top: 18px;
+  color: var(--texto-sec);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+.caso__autor{ margin-top: 8px; font-size: 0.82rem; color: var(--texto-terciario); }
+
+/* --------------------------------------------------------------------------
+   10. Misión y visión
+   -------------------------------------------------------------------------- */
+.mision-vision{ margin-top: 80px; }
+.mv-card{ background: var(--superficie); padding: 32px 30px; }
 .mv-card__titulo{
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: 1.02rem;
 }
+/* Cada tarjeta toma un color del logo, igual que las dos flechas. */
 .mv-card:nth-child(1) .mv-card__titulo{ color: var(--cian); }
 .mv-card:nth-child(2) .mv-card__titulo{ color: var(--violeta); }
 .mv-card p{ margin-top: 12px; color: var(--texto-sec); font-size: 0.95rem; }
 
-.nota-final{ margin-top: 56px; font-size: 0.82rem; color: var(--texto-terciario); max-width: 560px; }
+/* --------------------------------------------------------------------------
+   11. Preguntas frecuentes (acordeón con <details>)
+   Uso details/summary nativo: ya trae el estado abierto/cerrado y funciona
+   con teclado sin escribir una sola línea de JS.
+   -------------------------------------------------------------------------- */
+.faq{ margin-top: 80px; }
+.faq__lista{ border-top: 1px solid var(--borde); max-width: 720px; }
+.faq__item{ border-bottom: 1px solid var(--borde); }
+.faq__pregunta{
+  padding: 20px 36px 20px 0;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  list-style: none;
+}
+/* Quita la flechita por defecto de details en cada navegador. */
+.faq__pregunta::-webkit-details-marker{ display: none; }
+.faq__pregunta::marker{ content: ""; }
+/* Signo de más que se convierte en menos al abrir. */
+.faq__pregunta::after{
+  content: "+";
+  position: absolute;
+  right: 4px;
+  top: 17px;
+  font-size: 1.3rem;
+  color: var(--cian);
+  line-height: 1;
+}
+.faq__item[open] .faq__pregunta::after{ content: "−"; }
+.faq__item[open] .faq__pregunta{ color: var(--texto); }
+.faq__respuesta{
+  padding: 0 36px 22px 0;
+  color: var(--texto-sec);
+  font-size: 0.95rem;
+  max-width: 620px;
+}
 
-/* --- CTA final (home) --- */
+/* --------------------------------------------------------------------------
+   12. Formulario de contacto
+   -------------------------------------------------------------------------- */
+.contacto{
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: start;
+}
+.contacto__datos p{ color: var(--texto-sec); margin-top: 16px; max-width: 380px; }
+.contacto__lista{ list-style: none; margin-top: 28px; }
+.contacto__lista li{
+  padding: 14px 0;
+  border-top: 1px solid var(--borde);
+  font-size: 0.92rem;
+}
+.contacto__lista span{ display: block; color: var(--texto-terciario); font-size: 0.8rem; }
+.contacto__lista a{ color: var(--cian); text-decoration: none; }
+.contacto__lista a:hover{ text-decoration: underline; }
+
+.formulario{
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 32px 30px;
+}
+.campo{ margin-bottom: 20px; }
+.campo label{
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.campo input, .campo textarea, .campo select{
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--texto);
+}
+.campo textarea{ resize: vertical; min-height: 110px; }
+.campo input:focus, .campo textarea:focus, .campo select:focus{
+  outline: none;
+  border-color: var(--cian);
+}
+/* El mensaje de error nace vacío y el JS le mete el texto. Si está vacío
+   no ocupa espacio, así el formulario no brinca al validar. */
+.campo__error{
+  color: #E5484D;
+  font-size: 0.82rem;
+  margin-top: 6px;
+  min-height: 0;
+}
+.campo--invalido input,
+.campo--invalido textarea{ border-color: #E5484D; }
+
+.formulario__aviso{
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--superficie-alta);
+  border-left: 3px solid var(--cian);
+}
+.formulario__aviso[hidden]{ display: none; }
+.formulario__nota{ margin-top: 14px; font-size: 0.8rem; color: var(--texto-terciario); }
+
+@media (max-width: 820px){
+  .contacto{ grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* --------------------------------------------------------------------------
+   13. CTA final
+   El borde superior degradado va de cian a violeta, como el logo.
+   -------------------------------------------------------------------------- */
 .cta-final{
   margin-top: 80px;
-  position: relative;
   padding: 56px 4px 8px;
-  border-top: 1px solid transparent;
+  border-top: 2px solid transparent;
   background:
     linear-gradient(var(--bg), var(--bg)) padding-box,
-    linear-gradient(90deg, var(--cian), var(--violeta)) top / 100% 2px no-repeat border-box;
+    linear-gradient(90deg, var(--cian), var(--violeta)) border-box;
 }
 .cta-final h2{ max-width: 480px; }
 .cta-final p{ max-width: 480px; color: var(--texto-sec); font-size: 1.05rem; }
 .cta-final .hero__acciones{ margin-top: 28px; }
 
-/* --- Footer --- */
-.footer{
-  border-top: 1px solid var(--borde);
-  margin-top: 40px;
-}
+/* --------------------------------------------------------------------------
+   14. Footer
+   -------------------------------------------------------------------------- */
+.footer{ border-top: 1px solid var(--borde); margin-top: 40px; }
 .footer__inner{
-  max-width: 1080px;
+  max-width: var(--ancho);
   margin: 0 auto;
   padding: 32px 24px;
   display: flex;
@@ -329,12 +625,10 @@ a{ color: inherit; }
 .footer__links a{ color: var(--texto-terciario); text-decoration: none; }
 .footer__links a:hover{ color: var(--cian); }
 
-/* --- Equipo --- */
-.equipo{
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 96px 24px 100px;
-}
+/* --------------------------------------------------------------------------
+   15. Página de equipo
+   -------------------------------------------------------------------------- */
+.equipo{ max-width: var(--ancho); margin: 0 auto; padding: 96px 24px 100px; }
 .equipo__titulo{
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 4.4vw, 2.9rem);
@@ -347,31 +641,16 @@ a{ color: inherit; }
   color: var(--texto-sec);
   font-size: 1.05rem;
 }
-.equipo__grid{
-  margin-top: 64px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1px;
-  background: var(--borde);
-  border: 1px solid var(--borde);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.miembro{
-  background: var(--superficie);
-  padding: 30px 26px;
-}
+.equipo__grid{ margin-top: 64px; }
+.miembro{ background: var(--superficie); padding: 30px 26px; }
 .miembro__avatar{
-  width: 48px;
-  height: 48px;
+  width: 48px; height: 48px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--bg);
+  color: #fff;
   margin-bottom: 20px;
 }
 .miembro__nombre{
@@ -379,24 +658,15 @@ a{ color: inherit; }
   font-size: 1.02rem;
   font-weight: 600;
 }
-.miembro__rol{
-  color: var(--texto-sec);
-  font-weight: 500;
-  font-size: 0.88rem;
-  margin-top: 4px;
-}
-.miembro__descripcion{
-  margin-top: 14px;
-  color: var(--texto-sec);
-  font-size: 0.92rem;
-}
-.equipo__nota{
-  margin-top: 48px;
-  font-size: 0.82rem;
-  color: var(--texto-terciario);
-  max-width: 560px;
-}
+.miembro__rol{ color: var(--texto-sec); font-weight: 500; font-size: 0.88rem; margin-top: 4px; }
+.miembro__descripcion{ margin-top: 14px; color: var(--texto-sec); font-size: 0.92rem; }
+.equipo__nota{ margin-top: 48px; font-size: 0.82rem; color: var(--texto-terciario); max-width: 560px; }
 
+.nota-final{ margin-top: 56px; font-size: 0.82rem; color: var(--texto-terciario); max-width: 560px; }
+
+/* --------------------------------------------------------------------------
+   16. Ajustes para pantallas chicas
+   -------------------------------------------------------------------------- */
 @media (max-width: 600px){
   section{ padding: 64px 20px; }
   .equipo{ padding: 64px 20px 72px; }
@@ -404,4 +674,11 @@ a{ color: inherit; }
   .metricas-grid{ flex-direction: column; }
   .metrica{ border-left: none; border-top: 1px solid var(--borde); padding: 20px 0; }
   .metrica:first-child{ border-top: none; padding-top: 0; }
+  .formulario{ padding: 26px 22px; }
+}
+
+/* Si el usuario pidió menos movimiento en su sistema, se lo respetamos. */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
