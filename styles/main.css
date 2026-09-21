@@ -946,7 +946,13 @@ body:has(.hero) .hero h1{
   h1, .equipo__titulo{ font-size: clamp(2rem, 8vw, 3.2rem); }
   h2{ font-size: clamp(1.9rem, 9vw, 3.2rem); }
   .boton{ width: 100%; }
-  .hero{ padding-top: 62px; padding-bottom: 42px; gap: 28px; }
+  .hero{
+    grid-template-columns: 1fr;
+    padding: 62px 20px 42px;
+    gap: 28px;
+    overflow: hidden;
+  }
+  .hero__visual{ order: -1; }
   .hero__visual{ min-height: 220px; }
   .hero__logo{ width: 200px; height: 200px; }
 }
