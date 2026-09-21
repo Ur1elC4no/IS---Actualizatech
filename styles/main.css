@@ -923,6 +923,25 @@ body:has(.hero) .hero h1{
   color: var(--cian-hover);
 }
 
+:root[data-tema="claro"] .formulario{
+  background: var(--superficie);
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+:root[data-tema="claro"] .campo input,
+:root[data-tema="claro"] .campo textarea,
+:root[data-tema="claro"] .campo select{
+  background: var(--bg);
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+:root[data-tema="claro"] .campo input::placeholder,
+:root[data-tema="claro"] .campo textarea::placeholder{
+  color: var(--texto-terciario);
+}
+
 @media (max-width: 800px){
   h1, .equipo__titulo{ font-size: clamp(2rem, 8vw, 3.2rem); }
   h2{ font-size: clamp(1.9rem, 9vw, 3.2rem); }
