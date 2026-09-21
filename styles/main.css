@@ -778,17 +778,17 @@ h1, h2, .equipo__titulo{ text-shadow: 2px 2px 0 var(--violeta); }
 
 .hero{
   position: relative;
-  min-height: calc(100vh - 64px);
-  padding: 110px 24px 90px;
+  min-height: auto;
+  padding: 74px 24px 58px;
   grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr);
-  gap: 72px;
+  gap: 48px;
 }
 
 .hero::before, .equipo::before{
   content: "SOLUCIONES DIGITALES PARA EMPRESAS";
   display: block;
   position: absolute;
-  top: 64px;
+  top: 28px;
   left: 24px;
   color: var(--cian);
   font-size: .65rem;
@@ -814,7 +814,7 @@ body:has(.hero) .hero h1{
   line-height: 1.02;
 }
 
-.hero__acciones{ margin-top: 32px; }
+.hero__acciones{ margin-top: 24px; }
 .boton{
   border-radius: 999px;
   padding: 13px 24px;
@@ -828,9 +828,9 @@ body:has(.hero) .hero h1{
 .boton--primario{ box-shadow: 0 0 0 1px rgba(41,214,224,.35), 0 0 24px rgba(41,214,224,.15); }
 .boton--secundario{ border-color: rgba(238,241,248,.35); }
 
-.hero__visual{ min-height: 360px; }
-.hero__glow{ width: 420px; height: 420px; opacity: .5; }
-.hero__logo{ width: min(100%, 300px); height: 300px; border: 1px solid rgba(238,241,248,.25); border-radius: 16px; box-shadow: 22px 22px 0 rgba(104,69,232,.12); }
+.hero__visual{ min-height: 300px; }
+.hero__glow{ width: 340px; height: 340px; opacity: .5; }
+.hero__logo{ width: min(100%, 260px); height: 260px; border: 1px solid rgba(238,241,248,.25); border-radius: 16px; box-shadow: 16px 16px 0 rgba(104,69,232,.12); }
 
 .metricas, .casos, .mision-vision, .faq, .cta-final, .propuesta{ margin-top: 96px; }
 .metricas-grid{ border-color: var(--borde); }
@@ -927,8 +927,9 @@ body:has(.hero) .hero h1{
   h1, .equipo__titulo{ font-size: clamp(2rem, 8vw, 3.2rem); }
   h2{ font-size: clamp(1.9rem, 9vw, 3.2rem); }
   .boton{ width: 100%; }
-  .hero__visual{ min-height: 260px; }
-  .hero__logo{ width: 220px; height: 220px; }
+  .hero{ padding-top: 62px; padding-bottom: 42px; gap: 28px; }
+  .hero__visual{ min-height: 220px; }
+  .hero__logo{ width: 200px; height: 200px; }
 }
 
 @media (max-width: 600px){
