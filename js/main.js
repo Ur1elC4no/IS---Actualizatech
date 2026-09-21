@@ -103,6 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
       menu.hidden = abierto;
     });
 
+    menu.querySelectorAll("a").forEach(enlace => {
+      enlace.addEventListener("click", () => {
+        if (!esMovil()) return;
+        menu.hidden = true;
+        botonMenu.setAttribute("aria-expanded", "false");
+      });
+    });
+
     // Si alguien gira el celular o agranda la ventana, recalcular, porque
     // si no el menú se queda escondido en escritorio.
     window.addEventListener("resize", ajustarMenu);

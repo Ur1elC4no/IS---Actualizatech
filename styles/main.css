@@ -682,3 +682,259 @@ a{ color: inherit; }
   html{ scroll-behavior: auto; }
   *{ transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* ========================================================================== */
+/* 17. Dirección visual tipo Yáñez Society                                  */
+/* Mantiene los colores de ActualizaTech y cambia composición, escala,       */
+/* bordes y ritmo visual para acercarlo a las referencias.                   */
+/* ========================================================================== */
+
+:root{
+  --bg: #0A0E1C;
+  --superficie: #12182B;
+  --superficie-alta: #1A2238;
+  --borde: rgba(238,241,248,.28);
+  --texto: #EEF1F8;
+  --texto-sec: #AAB2C7;
+  --texto-terciario: #727B96;
+  --cian: #29D6E0;
+  --cian-hover: #4FE0E8;
+  --violeta: #9B84FF;
+  --sobre-cian: #0A0E1C;
+  --radio: 2px;
+  --ancho: 1180px;
+}
+
+body{
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  min-width: 320px;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 84px 84px;
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 72% 38%, rgba(104,69,232,.12), transparent 34%);
+  z-index: -1;
+}
+
+section, .equipo{ max-width: var(--ancho); }
+
+.equipo{ position: relative; }
+
+h1, h2, h3,
+.equipo__titulo,
+.servicio__titulo,
+.preview-card__titulo,
+.miembro__nombre,
+.caso__negocio,
+.mv-card__titulo{
+  font-family: 'Space Grotesk', Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -.055em;
+}
+
+h1, .equipo__titulo{
+  max-width: 760px;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: .96;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+h2{
+  max-width: 780px;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: .98;
+  font-weight: 800;
+  margin-bottom: 34px;
+}
+
+h1, h2, .equipo__titulo{ text-shadow: 2px 2px 0 var(--violeta); }
+
+.navbar{
+  width: min(calc(100% - 64px), var(--ancho));
+  margin: 10px auto 0;
+  border: 1px solid rgba(238,241,248,.26);
+  border-radius: 999px;
+  background: rgba(10,14,28,.78);
+  box-shadow: 0 10px 34px rgba(0,0,0,.22);
+}
+
+.navbar__inner{ padding: 9px 14px 9px 18px; }
+.navbar__logo{ font-size: .94rem; letter-spacing: -.04em; }
+.navbar__logo-img{ width: 30px; height: 30px; border-radius: 1px; }
+.navbar__links{ gap: 24px; }
+.navbar__links a{ color: var(--texto); font-size: .78rem; text-transform: uppercase; letter-spacing: .02em; }
+.navbar__links a[aria-current="page"]{ color: var(--cian); border-bottom-color: var(--cian); }
+.navbar__cta, .tema{ border-radius: 999px; }
+.navbar__cta{ padding: 7px 14px; }
+
+.hero{
+  position: relative;
+  min-height: calc(100vh - 64px);
+  padding: 110px 24px 90px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr);
+  gap: 72px;
+}
+
+.hero::before, .equipo::before{
+  content: "SOLUCIONES DIGITALES PARA EMPRESAS";
+  display: block;
+  position: absolute;
+  top: 64px;
+  left: 24px;
+  color: var(--cian);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
+.hero__subtitulo, .equipo__descripcion, .descripcion{
+  max-width: 560px;
+  color: var(--texto-sec);
+  font-size: .98rem;
+  line-height: 1.5;
+}
+
+body:has(.hero) h1,
+body:has(.hero) h2{
+  font-size: clamp(1.8rem, 3.4vw, 2.9rem);
+}
+
+body:has(.hero) .hero h1{
+  max-width: 620px;
+  font-size: clamp(1.8rem, 3.4vw, 2.9rem);
+  line-height: 1.02;
+}
+
+.hero__acciones{ margin-top: 32px; }
+.boton{
+  border-radius: 999px;
+  padding: 13px 24px;
+  min-height: 46px;
+  font-size: .92rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.boton:hover{ transform: translateY(-2px); }
+.boton--primario{ box-shadow: 0 0 0 1px rgba(41,214,224,.35), 0 0 24px rgba(41,214,224,.15); }
+.boton--secundario{ border-color: rgba(238,241,248,.35); }
+
+.hero__visual{ min-height: 360px; }
+.hero__glow{ width: 420px; height: 420px; opacity: .5; }
+.hero__logo{ width: min(100%, 300px); height: 300px; border: 1px solid rgba(238,241,248,.25); border-radius: 16px; box-shadow: 22px 22px 0 rgba(104,69,232,.12); }
+
+.metricas, .casos, .mision-vision, .faq, .cta-final, .propuesta{ margin-top: 96px; }
+.metricas-grid{ border-color: var(--borde); }
+.metrica{ border-color: var(--borde); padding: 22px 28px; }
+.metrica__valor{ color: var(--texto); font-size: 2.4rem; text-shadow: 2px 2px 0 var(--violeta); }
+.metrica__label{ text-transform: uppercase; letter-spacing: .08em; font-size: .68rem; }
+
+.servicios-grid, .preview-grid, .casos-grid, .equipo__grid, .mision-vision{
+  gap: 0;
+  border: 1px solid var(--borde);
+  border-radius: 0;
+  background: transparent;
+}
+
+.servicio, .preview-card, .caso, .mv-card, .miembro{
+  background: rgba(18,24,43,.58);
+  border: 1px solid var(--borde);
+  padding: 30px;
+}
+.servicio:hover, .preview-card:hover, .miembro:hover{ background: rgba(26,34,56,.85); }
+.servicio__icono, .preview-card__icono, .miembro__avatar{ border-radius: 50%; background: var(--violeta) !important; }
+.servicio__titulo, .preview-card__titulo{ font-size: 1.45rem; }
+.servicio__texto, .preview-card__texto, .servicio__lista, .caso__cita, .mv-card p, .miembro__descripcion{ color: var(--texto-sec); }
+
+.propuesta{ border-left: 1px solid var(--cian); padding-left: 24px; }
+.propuesta h2{ font-size: clamp(2rem, 5vw, 4.2rem); }
+
+.formulario{ background: rgba(18,24,43,.68); border-color: var(--borde); border-radius: 0; }
+.campo input, .campo textarea, .campo select{ background: rgba(10,14,28,.72); border-radius: 0; border-color: var(--borde); }
+.faq__lista, .faq__item, .contacto__lista li{ border-color: var(--borde); }
+
+.cta-final{ border-top-width: 1px; }
+.footer{ border-top-color: var(--borde); }
+
+/* El bloque visual anterior define el tema oscuro por defecto. Estas
+   variables tienen prioridad cuando el botón selecciona el modo claro. */
+:root[data-tema="claro"]{
+  --bg: #FFFFFF;
+  --superficie: #F6F7FB;
+  --superficie-alta: #EDEFF7;
+  --borde: #DFE3EE;
+  --texto: #0A0E1C;
+  --texto-sec: #5A6178;
+  --texto-terciario: #8A91A6;
+  --cian: #0E9BA6;
+  --cian-hover: #0B7F88;
+  --violeta: #6845E8;
+  --sobre-cian: #FFFFFF;
+  --glow-1: rgba(14, 155, 166, 0.20);
+  --glow-2: rgba(104, 69, 232, 0.18);
+}
+
+:root[data-tema="claro"] .servicios-grid,
+:root[data-tema="claro"] .preview-grid,
+:root[data-tema="claro"] .casos-grid,
+:root[data-tema="claro"] .equipo__grid,
+:root[data-tema="claro"] .mision-vision{
+  background: var(--borde);
+  border-color: var(--borde);
+}
+
+:root[data-tema="claro"] .servicio,
+:root[data-tema="claro"] .preview-card,
+:root[data-tema="claro"] .caso,
+:root[data-tema="claro"] .mv-card,
+:root[data-tema="claro"] .miembro{
+  background: var(--superficie);
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+:root[data-tema="claro"] .servicio:hover,
+:root[data-tema="claro"] .preview-card:hover,
+:root[data-tema="claro"] .miembro:hover{
+  background: var(--superficie-alta);
+}
+
+:root[data-tema="claro"] .navbar{
+  background: rgba(255, 255, 255, .88);
+  border-color: var(--borde);
+  box-shadow: 0 10px 34px rgba(10, 14, 28, .12);
+}
+
+:root[data-tema="claro"] .navbar__links a{
+  color: var(--texto);
+}
+
+:root[data-tema="claro"] .navbar__links a:hover,
+:root[data-tema="claro"] .navbar__links a[aria-current="page"]{
+  color: var(--cian-hover);
+}
+
+@media (max-width: 800px){
+  h1, .equipo__titulo{ font-size: clamp(2rem, 8vw, 3.2rem); }
+  h2{ font-size: clamp(1.9rem, 9vw, 3.2rem); }
+  .boton{ width: 100%; }
+  .hero__visual{ min-height: 260px; }
+  .hero__logo{ width: 220px; height: 220px; }
+}
+
+@media (max-width: 600px){
+  h1, .equipo__titulo{ font-size: clamp(1.9rem, 8vw, 2.8rem); }
+  h2{ font-size: clamp(1.8rem, 9vw, 2.8rem); }
+  body:has(.hero) h1{ font-size: clamp(1.8rem, 8vw, 2.6rem); }
+  body:has(.hero) h2{ font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  .navbar__links{ border-radius: 0 0 14px 14px; }
+}
